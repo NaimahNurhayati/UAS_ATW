@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\UserDetail;
 use App\Models\produk;
-use App\Models\kategori;
 
 class User extends Authenticatable
 {
@@ -30,15 +29,18 @@ class User extends Authenticatable
         return $this->hasMany(Kategori::class, 'id_user');
     }
 
-    function getJenisKelaminStringAttribute(){
+    function getJenisKelaminStringAttribute()
+    {
         return ($this->jenis_kelamin == 1) ? "Laki-Laki" : "Perempuan";
     }
 
-    function setPasswordAttribute($value){
+    function setPasswordAttribute($value)
+    {
         $this->attributes['password'] = bcrypt($value);
     }
 
-    function setUsernameAttribute($value){
+    function setUsernameAttribute($value)
+    {
         $this->attributes['username'] = strtolower($value);
     }
 }

@@ -1,12 +1,15 @@
 <?php
+
 namespace App\Models\Traits\Attributes;
 
 use Illuminate\Support\Str;
 
-trait ProdukAttributes {
+trait ProdukAttributes
+{
 
-	function getHargaAttribute(){
-		return "Rp. ".number_format($this->attributes['harga']); 
+	function getHargaAttribute()
+	{
+		return "Rp. " . number_format($this->attributes['harga']);
 	}
 
 	// function getTanggalProduksiAttribute(){
@@ -14,24 +17,26 @@ trait ProdukAttributes {
 	// 	return strftime("%d %b %y", strtotime($this->created_at));
 	// }
 
-	function handleUploadFoto(){
+	function handleUploadFoto()
+	{
 		$this->handleDelete();
-		if(request()->hasFile('foto')){
+		if (request()->hasFile('foto')) {
 			$foto = request()->file('foto');
 			$destination = "images/produk";
 			$randomStr = Str::random(5);
-			$filename = $this->id."-".time()."-".$randomStr.".".$foto->extension();
+			$filename = $this->id . "-" . time() . "-" . $randomStr . "." . $foto->extension();
 			$url = $foto->storeAs($destination, $filename);
-			$this->foto = "app/".$url;
+			$this->foto = "app/" . $url;
 			$this->save();
 		}
 	}
 
-	function handleDelete(){
+	function handleDelete()
+	{
 		$foto = $this->foto;
 		$path = public_path($foto);
-		if(file_exists($path)){
-			unlink($path);
+		if (file_exists($path)) {
+			// unlink($path);
 		}
 		return true;
 	}

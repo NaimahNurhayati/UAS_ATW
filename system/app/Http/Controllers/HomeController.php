@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use\App\Models\provinsi;
+use App\Models\provinsi;
 
 class HomeController extends Controller
 {
@@ -12,14 +12,14 @@ class HomeController extends Controller
 		return view('beranda');
 	}
 
+	function showHome()
+	{
+		return view('admin.home');
+	}
+
 	function showProduk()
 	{
 		return view('produk');
-	}
-
-	function showKategori()
-	{
-		return view('kategori');
 	}
 
 	function testAjax()

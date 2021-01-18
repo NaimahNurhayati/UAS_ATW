@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'pembeli',
         ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'user',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -85,6 +89,10 @@ return [
         'pembeli' => [
             'driver' => 'eloquent',
             'model' => App\Models\pembeli::class,
+        ],
+        'user' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\user::class,
         ],
 
         // 'users' => [

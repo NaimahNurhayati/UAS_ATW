@@ -1,4 +1,4 @@
-@extends('templateadmin.admin')
+@extends('template.base')
 
 @section('content')
 
@@ -72,14 +72,14 @@
 @endsection
 
 @push('style')
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 @endpush
 
 @push('script')
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-	<script>
-		$(document).ready(function() {
-		  $('#summernote').summernote();
-		});
-	</script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote();
+	});
+</script>
 @endpush

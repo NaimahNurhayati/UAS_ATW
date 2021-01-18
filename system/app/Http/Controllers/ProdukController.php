@@ -10,12 +10,12 @@ class ProdukController extends Controller
 	{
 		$user = request()->user();
 		$data['list_produk'] = $user->produk;
-		return view('produk.index', $data);
+		return view('admin.produk.index', $data);
 	}
 
 	function create()
 	{
-		return view('produk.create');
+		return view('admin.produk.create');
 	}
 
 	function store()
@@ -39,13 +39,13 @@ class ProdukController extends Controller
 	function show(produk $produk)
 	{
 		$data['produk'] = $produk;
-		return view('produk.show', $data);
+		return view('admin.produk.show', $data);
 	}
 
 	function edit(produk $produk)
 	{
 		$data['produk'] = $produk;
-		return view('produk.edit', $data);
+		return view('admin.produk.edit', $data);
 	}
 
 	function update(produk $produk)

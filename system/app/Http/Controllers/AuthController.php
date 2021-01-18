@@ -19,7 +19,7 @@ class AuthController extends Controller
 	function loginProcess()
 	{
 		// 	if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
-		// 		return redirect('beranda')->with('success', 'Login Berhasil');
+		// 		return redirect('home/$guard')->with('success', 'Login Berhasil');
 		// 	} else {
 		// 		return back()->with('danger', 'Login gagal. Silahkan cek email dan password anda!');
 		// 	}
@@ -29,6 +29,13 @@ class AuthController extends Controller
 		$user = Penjual::where('email', $email)->first();
 		if ($user) {
 			$guard = 'penjual';
+		} elseif ($user) {
+			$user = User::where('email', $email)->first();
+			if ($user) {
+				$guard = 'user';
+			} else {
+				$guard = false;
+			}
 		} else {
 			$user = Pembeli::where('email', $email)->first();
 			if ($user) {
@@ -41,13 +48,18 @@ class AuthController extends Controller
 		if (!$guard) {
 			return back()->with('danger', 'Login Gagal, Email Tidak Ditemukan di Database');
 		} else {
-			if (Auth::guard($guard)->attempt(['email' =>  request('email'), 'password' => request('password')])) {
-				return redirect('beranda/$guard')->with('success', 'Login Berhasil');
+			if (Auth::guard('penjual')->attempt(['email' =>  request('email'), 'password' => request('password')])) {
+				return redirect('home/$guard')->with('success', 'Login Berhasil');
+			} elseif (Auth::guard('user')->attempt(['email' =>  request('email'), 'password' => request('password')])) {
+				return redirect('home/$guard')->with('success', 'Login Berhasil');
+			} elseif (Auth::guard('pembeli')->attempt(['email' =>  request('email'), 'password' => request('password')])) {
+				return redirect('home/$guard')->with('success', 'Login Berhasil');
 			} else {
 				return back()->with('danger', 'Login Gagal, Silahkan Cek Email dan Password');
 			}
 		}
 	}
+
 
 	// digunakan apabila ada option as penjual&pembeli
 	// 	if(request('login_as') == 1){
@@ -70,7 +82,8 @@ class AuthController extends Controller
 		Auth::logout();
 		Auth::guard('penjual')->logout();
 		Auth::guard('pembeli')->logout();
-		return redirect('template');
+		Auth::guard('user')->logout();
+		return redirect('login');
 	}
 
 	function showRegister()
